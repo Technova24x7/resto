@@ -1,2 +1,2 @@
-# resto_back
-backend of resto
+# resto_app
+this is the deployment version of application

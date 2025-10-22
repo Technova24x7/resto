@@ -13,16 +13,28 @@ const inventoryItemRouter = require('./routes/inventoryItemRouter');
 const orderRouter = require('./routes/orderRouter');
 const reviewRouter = require('./routes/reviewRouter');
 const menuItemCategoryRouter =require('./routes/menuItemCategoryRouter');
+var cors = require('cors')
 
 const mongoose = require('mongoose');
 const dbUrl = process.env.DB_URL;
-var app = express();
 
-app.use(session({
-  secret: '123456', // Change this to a secret key of your choice
-  resave: false,
-  saveUninitialized: false
-}));
+var app = express();
+app.use(
+  session({
+    secret: '123456',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      httpOnly: true,
+      secure: false, // Change to true if using HTTPS
+    },
+  })
+);
+
+
+
+app.use(express.static(__dirname + '/public/resto'));
+
 
 // view engine setup
 //app.set('views', path.join(__dirname, 'views'));
@@ -47,6 +59,8 @@ mongoose.connect(dbUrl, { useNewUrlParser: true, useUnifiedTopology: true })
 
 
 // Routes
+
+app.use(cors());
 
 //app.use('/', indexRouter);
 app.use(userRouter);

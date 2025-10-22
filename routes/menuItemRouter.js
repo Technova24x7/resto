@@ -28,6 +28,7 @@ router.post('/api/menuItems', async (req, res) => {
 
 router.get('/api/menuItems',async(req,res)=>{
   try{
+    console.log(req.session);
     let restaurantId = req.session.restaurant._id;
     console.log(restaurantId);
 
@@ -35,7 +36,7 @@ router.get('/api/menuItems',async(req,res)=>{
     res.json(result);
   }
   catch(error){
-    res.status(500).json({ error: 'An error occurred' });
+    res.status(500).json({ error: `An error occurred ${error}` });
   }
 });
 
